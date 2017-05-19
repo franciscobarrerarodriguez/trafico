@@ -9,9 +9,14 @@ public class RedVial {
 	private int alto;
 
 	public RedVial(int ancho, int alto) {
+		
 		this.ancho = ancho;
 		this.alto = alto;
 		this.mallaVial = new int[ancho][alto];
+		
+		this.generarVias();
+		
+		this.imprimirMalla();
 	}
 
 	/**
@@ -45,10 +50,32 @@ public class RedVial {
 		}
 	}
 
-	public static void main(String[] args) {
-		RedVial redVial = new RedVial(100, 100);
-		redVial.generarVias();
-		redVial.imprimirMalla();
+	public int[][] getMallaVial() {
+		return mallaVial;
 	}
 
+	public void setMallaVial(int[][] mallaVial) {
+		this.mallaVial = mallaVial;
+	}
+
+	public int getAncho() {
+		return ancho;
+	}
+
+	public void setAncho(int ancho) {
+		this.ancho = ancho;
+	}
+
+	public int getAlto() {
+		return alto;
+	}
+
+	public void setAlto(int alto) {
+		this.alto = alto;
+	}
+	
+	
+	public static void main(String[] args) {
+		RedVial redVial = new RedVial(100, 100);
+	}
 }

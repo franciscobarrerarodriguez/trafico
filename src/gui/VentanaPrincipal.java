@@ -1,5 +1,9 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -7,12 +11,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 
 import ambiente.RedVial;
+import herramientas.Constantes;
 
 public class VentanaPrincipal extends JFrame {
 
 	private RedVial redVial;
-	
+
 	// Componentes
+	public PanelPrincipal panelPrincipal;
+
 	public JMenuItem jMenuItemSalir;
 	public JMenuItem jMenuItemconfiguracion;
 
@@ -21,11 +28,11 @@ public class VentanaPrincipal extends JFrame {
 	public VentanaPrincipal() {
 
 		this.setTitle("Simulador de tráfico");
-		this.setSize(1000, 650);
+		this.setSize(Constantes.ANCHO_VENTANA, Constantes.ALTO_VENTANA);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
-		this.setLayout(null);
+		this.setLayout(new GridLayout(1, 1));
 
 		this.init();
 	}
@@ -49,6 +56,15 @@ public class VentanaPrincipal extends JFrame {
 		jMenuBar.add(jMenuArchivo);
 
 		this.setJMenuBar(jMenuBar);
+
+		this.redVial = new RedVial(10, 10);
+
+		this.add(this.panelPrincipal = new PanelPrincipal(this.getWidth() / this.redVial.getAncho(),
+				this.getHeight() / this.redVial.getAlto(), this.redVial));
+	}
+
+	public void ventanaConfiguracion() {
+
 	}
 
 	public static void main(String[] args) {
