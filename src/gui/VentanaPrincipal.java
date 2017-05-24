@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
@@ -57,8 +55,11 @@ public class VentanaPrincipal extends JFrame {
 
 		this.setJMenuBar(jMenuBar);
 
-		this.redVial = new RedVial(10, 10);
+		// Se define un ancho y alto maximo para la red vial.
+		this.redVial = new RedVial(Constantes.DEFAULT_ANCHO, Constantes.DEFAULT_ALTO);
 
+		// Se crea el panel en donde sera dibujada la red vial, y se definen sus
+		// medidas de ancho y alto dependiendo del tamano de la ventana.
 		this.add(this.panelPrincipal = new PanelPrincipal(this.getWidth() / this.redVial.getAncho(),
 				this.getHeight() / this.redVial.getAlto(), this.redVial));
 	}

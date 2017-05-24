@@ -37,7 +37,7 @@ public class PanelPrincipal extends JPanel {
 				g.setColor(Color.GRAY);
 				g.fillRect(i * this.tamanoViaX, 0, this.tamanoViaX, this.getHeight());
 				g.setColor(Color.YELLOW);
-				g.fillRect((i * this.tamanoViaX) + (this.tamanoViaX / 2), 0, 2, this.getHeight());
+				g.fillRect((i * this.tamanoViaX) + (this.tamanoViaX / 2), 0, 1, this.getHeight());
 			}
 		}
 		// Dibujar viasY.
@@ -47,7 +47,7 @@ public class PanelPrincipal extends JPanel {
 				g.setColor(Color.GRAY);
 				g.fillRect(0, i * this.tamanoViaY, this.getWidth(), this.tamanoViaY);
 				g.setColor(Color.YELLOW);
-				g.fillRect(0, (i * this.tamanoViaY) + (this.tamanoViaY / 2), this.getWidth(), 2);
+				g.fillRect(0, (i * this.tamanoViaY) + (this.tamanoViaY / 2), this.getWidth(), 1);
 			}
 		}
 	}
