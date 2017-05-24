@@ -3,10 +3,14 @@ package gui;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import ambiente.RedVial;
 import herramientas.Constantes;
+import herramientas.General;
+import herramientas.TipoVehiculo;
+import poblacion.Vehiculo;
 
 @SuppressWarnings("serial")
 public class PanelPrincipal extends JPanel {
@@ -22,7 +26,11 @@ public class PanelPrincipal extends JPanel {
 
 	private RedVial redVial;
 
+	private Thread threadGenerarTrasporte;
+
 	public PanelPrincipal(int tamanoViaX, int tamanoViaY, RedVial redVial) {
+
+		this.setLayout(null);
 
 		this.tamanoViaX = tamanoViaX;
 		this.tamanoCarrilX = tamanoViaX / 2;
@@ -35,6 +43,11 @@ public class PanelPrincipal extends JPanel {
 		System.out.println("Ancho vias x: " + this.tamanoViaX + "px, Alto vias y: " + this.tamanoViaY + "px");
 		System.out.println("Ancho carril x: " + this.tamanoCarrilX + "px, Ancho carril y: " + this.tamanoCarrilY);
 
+//		generarTransporte();
+		// JLabel jLabel = new JLabel("hola");
+		// jLabel.setBounds(30, 40, 40, 40);
+		// this.add(jLabel);
+		// this.add(new JLabel("fdgdfgdf"));
 	}
 
 	@Override
@@ -71,4 +84,5 @@ public class PanelPrincipal extends JPanel {
 			}
 		}
 	}
+
 }

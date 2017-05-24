@@ -8,9 +8,17 @@ public class Constantes {
 	public static final int DEFAULT_ALTO = 26;
 	public static final int ANCHO_VENTANA = 1000;
 	public static final int ALTO_VENTANA = 650;
-	
+
+	public static final int ANCHO_VEHICULO = (((Constantes.ANCHO_VENTANA / Constantes.DEFAULT_ANCHO))/2) - 5;
+
 	public static final int LARGO_SEPARADOR = 20;
-	
+
 	public static final Color COLOR_VERDE = new Color(69, 237, 80);
-	
+
+	public static final Color COLOR_TURISMO = Color.BLUE;
+	public static final Color COLOR_MOTOCICLETA = Color.RED;
+	public static final Color COLOR_CAMION = Color.WHITE;
+	public static final Color COLOR_BUS = Color.YELLOW;
+	public static final Color COLOR_TRACTOMULA = Color.CYAN;
+
 }

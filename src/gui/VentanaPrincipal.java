@@ -3,6 +3,7 @@ package gui;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -63,7 +64,7 @@ public class VentanaPrincipal extends JFrame {
 		// medidas de ancho y alto dependiendo del tamano de la ventana.
 		this.add(this.panelPrincipal = new PanelPrincipal(this.getWidth() / this.redVial.getAncho(),
 				this.getHeight() / this.redVial.getAlto(), this.redVial));
-	}
+			}
 
 	public void ventanaConfiguracion() {
 

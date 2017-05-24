@@ -13,7 +13,7 @@ public class Coordenada {
 	 *            Posicion en Y en la red vial
 	 */
 	public Coordenada(int posX, int posY) {
-		
+
 		this.posX = posX;
 		this.posY = posY;
 	}
@@ -33,5 +33,10 @@ public class Coordenada {
 	public void setPosY(int posY) {
 		this.posY = posY;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "posX: " + this.posX + ", posY: " + this.posY;
+	}
+
 }

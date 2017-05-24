@@ -2,5 +2,9 @@ package herramientas;
 
 public enum TipoVehiculo {
 	
-	TURISMO, VEHICULO_MIXTO, MOTOCICLETA, CAMION, BUS, TRACTOMULA;
+	TURISMO, MOTOCICLETA, CAMION, BUS, TRACTOMULA;
+	
+	public static TipoVehiculo getTipoAleatorio() {
+        return values()[(int) (Math.random() * values().length)];
+    }
 }

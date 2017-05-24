@@ -1,5 +1,8 @@
 package poblacion;
 
+import java.awt.Color;
+
+import herramientas.Constantes;
 import herramientas.Coordenada;
 import herramientas.TipoVehiculo;
 
@@ -15,31 +18,72 @@ public class Vehiculo {
 	 * vial.
 	 */
 	private TipoVehiculo tipoVehiculo;
+
 	private int longitud;
+	private int ancho;
+
+	private Color color;
+
 	private Coordenada coordenadaOrigen;
 	private Coordenada coordenadaDestino;
 
+	/**
+	 * 
+	 * @param tipo
+	 *            Define el tipo de vehiculo para la clase
+	 * @param ancho
+	 *            Define el ancho del vehiculo en pixeles
+	 * @param redVial
+	 *            Red vial para saber las coordenadas de origen y destino
+	 */
 	public Vehiculo(TipoVehiculo tipo, Coordenada coordenadaOrigen, Coordenada coordenadaDestino) {
+
+		this.ancho = Constantes.ANCHO_VEHICULO;
+
 		this.coordenadaOrigen = coordenadaOrigen;
 		this.coordenadaDestino = coordenadaDestino;
+
 		this.init(tipo);
 	}
 
+	/**
+	 * Inicializa todas las carecteristicas propias del vehiculo creado.
+	 * 
+	 * @param tipo
+	 *            Usa el tipo de vehiculo que tiene definido la clase para
+	 *            inicializar el vehiculo.
+	 */
 	private void init(TipoVehiculo tipo) {
-		switch (this.tipoVehiculo  = tipo) {
+		switch (this.tipoVehiculo = tipo) {
 		case TURISMO:
-			break;
-		case VEHICULO_MIXTO:
+			this.longitud = this.ancho;
+			this.color = Constantes.COLOR_TURISMO;
 			break;
 		case MOTOCICLETA:
+			this.ancho -= 2;
+			this.longitud = this.ancho * 3;
+			this.color = Constantes.COLOR_MOTOCICLETA;
 			break;
 		case CAMION:
+			this.longitud = this.ancho * 5;
+			this.color = Constantes.COLOR_CAMION;
 			break;
 		case BUS:
+			this.longitud = this.ancho * 5;
+			this.color = Constantes.COLOR_BUS;
 			break;
 		case TRACTOMULA:
+			this.longitud = this.ancho * 10;
+			this.color = Constantes.COLOR_TRACTOMULA;
 			break;
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Tipo: " + this.tipoVehiculo + ", ancho: " + this.ancho + "px, largo: " + this.longitud + "px, color:"
+				+ this.color + ", Coordenada origen: " + this.coordenadaOrigen.toString() + ", Coordenada destino: "
+				+ this.coordenadaDestino.toString();
 	}
 
 	public TipoVehiculo getTipoVehiculo() {
@@ -74,4 +118,19 @@ public class Vehiculo {
 		this.coordenadaDestino = coordenadaDestino;
 	}
 
+	public int getAncho() {
+		return ancho;
+	}
+
+	public void setAncho(int ancho) {
+		this.ancho = ancho;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
 }
