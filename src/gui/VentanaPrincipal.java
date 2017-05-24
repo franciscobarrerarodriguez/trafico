@@ -11,6 +11,7 @@ import javax.swing.JSeparator;
 import ambiente.RedVial;
 import herramientas.Constantes;
 
+@SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
 
 	private RedVial redVial;

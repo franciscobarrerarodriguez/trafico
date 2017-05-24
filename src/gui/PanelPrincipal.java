@@ -8,21 +8,33 @@ import javax.swing.JPanel;
 import ambiente.RedVial;
 import herramientas.Constantes;
 
+@SuppressWarnings("serial")
 public class PanelPrincipal extends JPanel {
 
+	// Ancho de calzada
 	private int tamanoViaX;
+	// Ancho de carril
+	private int tamanoCarrilX;
+	// Ancho de calzada
 	private int tamanoViaY;
+	// Ancho de carril
+	private int tamanoCarrilY;
 
 	private RedVial redVial;
 
 	public PanelPrincipal(int tamanoViaX, int tamanoViaY, RedVial redVial) {
 
 		this.tamanoViaX = tamanoViaX;
+		this.tamanoCarrilX = tamanoViaX / 2;
+
 		this.tamanoViaY = tamanoViaY;
+		this.tamanoCarrilY = tamanoViaY / 2;
 
 		this.redVial = redVial;
 
-		System.out.println("Ancho " + this.tamanoViaX + "px, Alto" + this.tamanoViaY + "px");
+		System.out.println("Ancho vias x: " + this.tamanoViaX + "px, Alto vias y: " + this.tamanoViaY + "px");
+		System.out.println("Ancho carril x: " + this.tamanoCarrilX + "px, Ancho carril y: " + this.tamanoCarrilY);
+
 	}
 
 	@Override
@@ -37,7 +49,11 @@ public class PanelPrincipal extends JPanel {
 				g.setColor(Color.GRAY);
 				g.fillRect(i * this.tamanoViaX, 0, this.tamanoViaX, this.getHeight());
 				g.setColor(Color.YELLOW);
-				g.fillRect((i * this.tamanoViaX) + (this.tamanoViaX / 2), 0, 1, this.getHeight());
+				int flag = 0;
+				while (flag < this.getHeight()) {
+					g.fillRect((i * this.tamanoViaX) + this.tamanoCarrilX, flag * 2, 1, Constantes.LARGO_SEPARADOR);
+					flag += 20;
+				}
 			}
 		}
 		// Dibujar viasY.
@@ -47,7 +63,11 @@ public class PanelPrincipal extends JPanel {
 				g.setColor(Color.GRAY);
 				g.fillRect(0, i * this.tamanoViaY, this.getWidth(), this.tamanoViaY);
 				g.setColor(Color.YELLOW);
-				g.fillRect(0, (i * this.tamanoViaY) + (this.tamanoViaY / 2), this.getWidth(), 1);
+				int flag = 0;
+				while (flag < this.getWidth()) {
+					g.fillRect(flag * 2, (i * this.tamanoViaY) + this.tamanoCarrilY, Constantes.LARGO_SEPARADOR, 1);
+					flag += 20;
+				}
 			}
 		}
 	}

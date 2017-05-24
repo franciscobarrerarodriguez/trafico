@@ -8,14 +8,21 @@ public class RedVial {
 	private int ancho;
 	private int alto;
 
+	/**
+	 * 
+	 * @param ancho
+	 *            numero de casillas que tiene la redVial en X
+	 * @param alto
+	 *            numero de casillas que tiene la redVial en Y
+	 */
 	public RedVial(int ancho, int alto) {
-		
+
 		this.ancho = ancho;
 		this.alto = alto;
 		this.mallaVial = new int[ancho][alto];
-		
+
 		this.generarVias();
-		
+
 		this.imprimirMalla();
 	}
 
@@ -38,9 +45,11 @@ public class RedVial {
 				this.mallaVial[posicion][j] = 1;
 			}
 		}
-
 	}
-	
+
+	/**
+	 * Imprime en consola la redVial generada.
+	 */
 	public void imprimirMalla() {
 		for (int i = 0; i < this.alto; i++) {
 			for (int j = 0; j < this.ancho; j++) {
@@ -73,8 +82,7 @@ public class RedVial {
 	public void setAlto(int alto) {
 		this.alto = alto;
 	}
-	
-	
+
 	public static void main(String[] args) {
 		RedVial redVial = new RedVial(100, 100);
 	}
