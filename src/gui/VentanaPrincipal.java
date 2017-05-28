@@ -26,7 +26,6 @@ public class VentanaPrincipal extends JFrame {
 	private EventosVentanaPrincipal eventosVentanaPrincipal;
 
 	public VentanaPrincipal() {
-
 		this.setTitle("Simulador de tráfico");
 		this.setSize(Constantes.ANCHO_VENTANA, Constantes.ALTO_VENTANA);
 		this.setLocationRelativeTo(null);
@@ -64,7 +63,7 @@ public class VentanaPrincipal extends JFrame {
 		// medidas de ancho y alto dependiendo del tamano de la ventana.
 		this.add(this.panelPrincipal = new PanelPrincipal(this.getWidth() / this.redVial.getAncho(),
 				this.getHeight() / this.redVial.getAlto(), this.redVial));
-			}
+	}
 
 	public void ventanaConfiguracion() {
 
@@ -75,4 +74,5 @@ public class VentanaPrincipal extends JFrame {
 		VentanaPrincipal principal = new VentanaPrincipal();
 		principal.setVisible(true);
 	}
+
 }

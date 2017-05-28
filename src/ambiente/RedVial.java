@@ -10,11 +10,14 @@ import poblacion.Vehiculo;
 public class RedVial {
 
 	private int[][] mallaVial;
+
 	private int ancho;
 	private int alto;
 
 	private int viasX;
 	private int viasY;
+
+	private TipoVias tipoVias;
 
 	private ArrayList<Vehiculo> vehiculos;
 
@@ -39,6 +42,8 @@ public class RedVial {
 
 		this.mallaVial = new int[ancho][alto];
 
+		this.tipoVias = TipoVias.MAPA_1;
+
 		this.generarVias();
 
 		this.contarViasX();
@@ -54,6 +59,34 @@ public class RedVial {
 	 * una via en cada sentido.
 	 */
 	public void generarVias() {
+		switch (this.tipoVias) {
+		case MAPA_1:
+			this.mapa1();
+			break;
+
+		case ALEATORIAS:
+			this.aleatorias();
+			break;
+		}
+	}
+
+	public void mapa1() {
+		// Vias Y
+		for (int i = 0; i < this.ancho; i++) {
+			this.mallaVial[i][8] = 1;
+			this.mallaVial[i][16] = 1;
+		}
+		// Vias X
+		for (int i = 0; i < this.alto; i++) {
+			this.mallaVial[13][i] = 1;
+			this.mallaVial[26][i] = 1;
+		}
+	}
+
+	/**
+	 * Genera vias completamente aleatorias dentro de la red vial.
+	 */
+	public void aleatorias() {
 		int aleatorioX = General.aleatorioEnRango(this.alto, 1);
 		for (int i = 0; i < aleatorioX; i++) {
 			int posicion = General.aleatorioEnRango((this.alto - 1), 0);
@@ -79,10 +112,11 @@ public class RedVial {
 			@Override
 			public void run() {
 				while (true) {
-					Vehiculo vehiculo = new Vehiculo(TipoVehiculo.getTipoAleatorio(), generarCoordenada(), generarCoordenada());
+					Vehiculo vehiculo = new Vehiculo(TipoVehiculo.getTipoAleatorio(), generarCoordenada(),
+							generarCoordenada());
 					vehiculos.add(vehiculo);
-					 System.out.println(vehiculo.toString());
-					 General.wait(7);
+					System.out.println(vehiculo.toString());
+					General.wait(7);
 				}
 			}
 		});
@@ -93,7 +127,9 @@ public class RedVial {
 	 * Genera una coordenada aleatoria (sobre una via) que se puede utilizar
 	 * como origen o destino, si el resultado generado es 0(X), genera una
 	 * posicion valida entre las vias generadas posX y para posY 0 o 1, para
-	 * determinar su origen al pricipio o al final de la via.
+	 * determinar su origen al pricipio o al final de la via. 0 para generarlo
+	 * en la parte superior y 1 para generarlo en la parte inferior de la
+	 * ventana
 	 */
 	private Coordenada generarCoordenada() {
 		int posX = 0;
@@ -205,5 +241,13 @@ public class RedVial {
 
 	public void setViasY(int viasY) {
 		this.viasY = viasY;
+	}
+
+	public ArrayList<Vehiculo> getVehiculos() {
+		return vehiculos;
+	}
+
+	public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
+		this.vehiculos = vehiculos;
 	}
 }

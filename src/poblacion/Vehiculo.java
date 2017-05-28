@@ -26,6 +26,8 @@ public class Vehiculo {
 
 	private Coordenada coordenadaOrigen;
 	private Coordenada coordenadaDestino;
+	
+	private Estado estado;
 
 	/**
 	 * 
@@ -39,6 +41,8 @@ public class Vehiculo {
 	public Vehiculo(TipoVehiculo tipo, Coordenada coordenadaOrigen, Coordenada coordenadaDestino) {
 
 		this.ancho = Constantes.ANCHO_VEHICULO;
+		
+		this.estado = Estado.ESPERANDO;
 
 		this.coordenadaOrigen = coordenadaOrigen;
 		this.coordenadaDestino = coordenadaDestino;
@@ -83,7 +87,7 @@ public class Vehiculo {
 	public String toString() {
 		return "Tipo: " + this.tipoVehiculo + ", ancho: " + this.ancho + "px, largo: " + this.longitud + "px, color:"
 				+ this.color + ", Coordenada origen: " + this.coordenadaOrigen.toString() + ", Coordenada destino: "
-				+ this.coordenadaDestino.toString();
+				+ this.coordenadaDestino.toString()+", estado: "+this.estado;
 	}
 
 	public TipoVehiculo getTipoVehiculo() {
@@ -132,5 +136,13 @@ public class Vehiculo {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 }
