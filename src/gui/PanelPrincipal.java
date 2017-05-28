@@ -28,6 +28,9 @@ public class PanelPrincipal extends JPanel {
 
 	private RedVial redVial;
 
+	private ArrayList<JLabelVia> arrayListViasX;
+	private ArrayList<JLabelVia> arrayListViasY;
+
 	private Thread threadVerificarVehiculos;
 
 	private ArrayList<JLabel> vehiculosEnTransito;
@@ -35,6 +38,8 @@ public class PanelPrincipal extends JPanel {
 	public PanelPrincipal(int tamanoViaX, int tamanoViaY, RedVial redVial) {
 
 		this.setLayout(null);
+
+		this.setBackground(Constantes.COLOR_VERDE);
 
 		this.tamanoViaX = tamanoViaX;
 		this.tamanoCarrilX = tamanoViaX / 2;
@@ -44,12 +49,40 @@ public class PanelPrincipal extends JPanel {
 
 		this.redVial = redVial;
 
+		this.renderVias();
+
 		this.vehiculosEnTransito = new ArrayList<JLabel>();
 
 		System.out.println("Ancho vias x: " + this.tamanoViaX + "px, Alto vias y: " + this.tamanoViaY + "px");
 		System.out.println("Ancho carril x: " + this.tamanoCarrilX + "px, Ancho carril y: " + this.tamanoCarrilY);
 
-		verificarVehiculos();
+		// verificarVehiculos();
+	}
+
+	private void renderVias() {
+		// Dibujar viasX.
+		this.arrayListViasX = new ArrayList<JLabelVia>();
+		for (int i = 0; i < this.redVial.getAncho(); i++) {
+			if ((this.redVial.getMallaVial()[i][0] == 1)
+					&& (this.redVial.getMallaVial()[i][this.redVial.getAlto() - 1] == 1)) {
+				JLabelVia jLabelVia = new JLabelVia((i * this.tamanoViaX), 0, this.tamanoViaX, Constantes.ALTO_VENTANA);
+				this.arrayListViasX.add(jLabelVia);
+				this.add(jLabelVia);
+			}
+		}
+		// Dibujar viasY
+		this.arrayListViasY = new ArrayList<JLabelVia>();
+		for (int i = 0; i < this.redVial.getAlto(); i++) {
+			if ((this.redVial.getMallaVial()[0][i] == 1)
+					&& (this.redVial.getMallaVial()[this.redVial.getAncho() - 1][i] == 1)) {
+				JLabelVia jLabelVia = new JLabelVia(0, (i * this.tamanoViaY), Constantes.ANCHO_VENTANA,
+						this.tamanoViaY);
+				this.arrayListViasY.add(jLabelVia);
+				this.add(jLabelVia);
+			}
+		}
+
+		this.repaint();
 	}
 
 	private void verificarVehiculos() {
@@ -92,7 +125,7 @@ public class PanelPrincipal extends JPanel {
 			System.out.println("Y > X; x: " + x + ", y: " + y);
 		}
 		this.repaint();
-	
+
 		JLabelVehiculo jLabelVehiculo = new JLabelVehiculo(vehiculo.getColor());
 		// this.vehiculosEnTransito.add(jLabelVehiculo);
 		jLabelVehiculo.setBounds(x, y, vehiculo.getAncho(), vehiculo.getLongitud());
@@ -100,40 +133,4 @@ public class PanelPrincipal extends JPanel {
 		vehiculo.setEstado(Estado.TRANSITANDO);
 		this.repaint();
 	}
-
-	@Override
-	protected void paintComponent(Graphics g) {
-		g.setColor(Constantes.COLOR_VERDE);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-
-		// Dibujar viasX.
-		for (int i = 0; i < this.redVial.getAncho(); i++) {
-			if ((this.redVial.getMallaVial()[i][0] == 1)
-					&& (this.redVial.getMallaVial()[i][this.redVial.getAlto() - 1] == 1)) {
-				g.setColor(Color.GRAY);
-				g.fillRect(i * this.tamanoViaX, 0, this.tamanoViaX, this.getHeight());
-				g.setColor(Color.YELLOW);
-				int flag = 0;
-				while (flag < this.getHeight()) {
-					g.fillRect((i * this.tamanoViaX) + this.tamanoCarrilX, flag * 2, 1, Constantes.LARGO_SEPARADOR);
-					flag += 20;
-				}
-			}
-		}
-		// Dibujar viasY.
-		for (int i = 0; i < this.redVial.getAlto(); i++) {
-			if ((this.redVial.getMallaVial()[0][i] == 1)
-					&& (this.redVial.getMallaVial()[this.redVial.getAncho() - 1][i] == 1)) {
-				g.setColor(Color.GRAY);
-				g.fillRect(0, i * this.tamanoViaY, this.getWidth(), this.tamanoViaY);
-				g.setColor(Color.YELLOW);
-				int flag = 0;
-				while (flag < this.getWidth()) {
-					g.fillRect(flag * 2, (i * this.tamanoViaY) + this.tamanoCarrilY, Constantes.LARGO_SEPARADOR, 1);
-					flag += 20;
-				}
-			}
-		}
-	}
-
 }
