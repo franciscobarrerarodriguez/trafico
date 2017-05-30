@@ -3,6 +3,7 @@ package gui;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import ambiente.RedVial;
@@ -13,7 +14,7 @@ import poblacion.Estado;
 import poblacion.Vehiculo;
 
 @SuppressWarnings("serial")
-public class PanelRedVial extends JPanel {
+public class PanelRedVial extends JLayeredPane {
 
 	// Ancho de calzada
 	private int tamanoViaX;
@@ -38,6 +39,7 @@ public class PanelRedVial extends JPanel {
 		this.setLayout(null);
 
 		this.setBackground(Constantes.COLOR_VERDE);
+		this.setOpaque(true);
 
 		this.tamanoViaX = tamanoViaX;
 		this.tamanoCarrilX = tamanoViaX / 2;
@@ -66,7 +68,7 @@ public class PanelRedVial extends JPanel {
 					&& (this.redVial.getMallaVial()[i][this.redVial.getAlto() - 1] == 1)) {
 				JLabelVia jLabelVia = new JLabelVia((i * this.tamanoViaX), 0, this.tamanoViaX, Constantes.ALTO_VENTANA);
 				this.arrayListViasX.add(jLabelVia);
-				this.add(jLabelVia);
+				this.add(jLabelVia, new Integer(1));
 			}
 		}
 		// Dibujar viasY
@@ -77,7 +79,7 @@ public class PanelRedVial extends JPanel {
 				JLabelVia jLabelVia = new JLabelVia(0, (i * this.tamanoViaY), Constantes.ANCHO_VENTANA,
 						this.tamanoViaY);
 				this.arrayListViasY.add(jLabelVia);
-				this.add(jLabelVia);
+				this.add(jLabelVia, new Integer(1));
 			}
 		}
 
@@ -116,26 +118,24 @@ public class PanelRedVial extends JPanel {
 		int x = 0;
 		int y = 0;
 		if (posX >= posY) {
-			x = (int) this.arrayListViasX.get(posX - 1).getBounds().getX()+5;
+			x = (int) this.arrayListViasX.get(posX - 1).getBounds().getX() + 5;
 			if (posY == 1) {
 				y = Constantes.ALTO_VENTANA - 50;
 			} else {
 				y = 50;
 			}
 		} else if (posY > posX) {
-			y = (int) this.arrayListViasY.get(posY - 1).getBounds().getY()+5;
+			y = (int) this.arrayListViasY.get(posY - 1).getBounds().getY() + 5;
 			if (posX == 1) {
 				x = Constantes.ANCHO_VENTANA - 50;
 			} else {
 				x = 50;
 			}
 		}
-		System.out.println("Vehiculo "+vehiculo.getTipoVehiculo()+", X:" + x + ", Y: " + y);
-		
-		
+		System.out.println("Vehiculo " + vehiculo.getTipoVehiculo() + ", X:" + x + ", Y: " + y);
 
 		jLabelVehiculo.setBounds(x, y, vehiculo.getAncho(), vehiculo.getLongitud());
-		this.add(jLabelVehiculo);
+		this.add(jLabelVehiculo, new Integer(3));
 		vehiculo.setEstado(Estado.TRANSITANDO);
 		this.repaint();
 
