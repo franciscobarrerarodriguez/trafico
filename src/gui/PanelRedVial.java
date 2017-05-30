@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -15,7 +13,7 @@ import poblacion.Estado;
 import poblacion.Vehiculo;
 
 @SuppressWarnings("serial")
-public class PanelPrincipal extends JPanel {
+public class PanelRedVial extends JPanel {
 
 	// Ancho de calzada
 	private int tamanoViaX;
@@ -35,7 +33,7 @@ public class PanelPrincipal extends JPanel {
 
 	private ArrayList<JLabel> vehiculosEnTransito;
 
-	public PanelPrincipal(int tamanoViaX, int tamanoViaY, RedVial redVial) {
+	public PanelRedVial(int tamanoViaX, int tamanoViaY, RedVial redVial) {
 
 		this.setLayout(null);
 
@@ -51,14 +49,15 @@ public class PanelPrincipal extends JPanel {
 
 		this.renderVias();
 
-		this.vehiculosEnTransito = new ArrayList<JLabel>();
-
 		System.out.println("Ancho vias x: " + this.tamanoViaX + "px, Alto vias y: " + this.tamanoViaY + "px");
 		System.out.println("Ancho carril x: " + this.tamanoCarrilX + "px, Ancho carril y: " + this.tamanoCarrilY);
 
-		// verificarVehiculos();
+		verificarVehiculos();
 	}
 
+	/**
+	 * Renderiza toda la red vial.
+	 */
 	private void renderVias() {
 		// Dibujar viasX.
 		this.arrayListViasX = new ArrayList<JLabelVia>();
@@ -86,6 +85,8 @@ public class PanelPrincipal extends JPanel {
 	}
 
 	private void verificarVehiculos() {
+		this.vehiculosEnTransito = new ArrayList<JLabel>();
+
 		this.threadVerificarVehiculos = new Thread(new Runnable() {
 			ArrayList<Vehiculo> vehiculos = redVial.getVehiculos();
 
@@ -109,28 +110,34 @@ public class PanelPrincipal extends JPanel {
 	private void renderVehiculo(Vehiculo vehiculo) {
 		int posX = vehiculo.getCoordenadaOrigen().getPosX();
 		int posY = vehiculo.getCoordenadaOrigen().getPosY();
+
+		JLabelVehiculo jLabelVehiculo = new JLabelVehiculo(vehiculo);
+
 		int x = 0;
 		int y = 0;
-		if (posX > posY) {
-			x = posX * this.tamanoViaX;
+		if (posX >= posY) {
+			x = (int) this.arrayListViasX.get(posX - 1).getBounds().getX()+5;
 			if (posY == 1) {
-				y = this.getHeight() - 20;
+				y = Constantes.ALTO_VENTANA - 50;
+			} else {
+				y = 50;
 			}
-			System.out.println("X > Y; x: " + x + ", y: " + y);
 		} else if (posY > posX) {
-			y = posY * this.tamanoViaY;
+			y = (int) this.arrayListViasY.get(posY - 1).getBounds().getY()+5;
 			if (posX == 1) {
-				x = this.getWidth() - 20;
+				x = Constantes.ANCHO_VENTANA - 50;
+			} else {
+				x = 50;
 			}
-			System.out.println("Y > X; x: " + x + ", y: " + y);
 		}
-		this.repaint();
+		System.out.println("Vehiculo "+vehiculo.getTipoVehiculo()+", X:" + x + ", Y: " + y);
+		
+		
 
-		JLabelVehiculo jLabelVehiculo = new JLabelVehiculo(vehiculo.getColor());
-		// this.vehiculosEnTransito.add(jLabelVehiculo);
 		jLabelVehiculo.setBounds(x, y, vehiculo.getAncho(), vehiculo.getLongitud());
 		this.add(jLabelVehiculo);
 		vehiculo.setEstado(Estado.TRANSITANDO);
 		this.repaint();
+
 	}
 }

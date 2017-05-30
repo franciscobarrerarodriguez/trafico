@@ -4,11 +4,24 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 
-@SuppressWarnings("serial")
-public class JLabelVehiculo extends JLabel{
+import poblacion.Vehiculo;
 
-	public JLabelVehiculo(Color color) {
-		this.setBackground(color);
+@SuppressWarnings("serial")
+public class JLabelVehiculo extends JLabel {
+
+	private Vehiculo vehiculo;
+
+	public JLabelVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
+		this.setBackground(this.vehiculo.getColor());
 		this.setOpaque(true);
+	}
+
+	public Vehiculo getVehiculo() {
+		return vehiculo;
+	}
+
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
 	}
 }

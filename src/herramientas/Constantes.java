@@ -17,7 +17,7 @@ public class Constantes {
 
 	public static final Color COLOR_TURISMO = Color.BLUE;
 	public static final Color COLOR_MOTOCICLETA = Color.RED;
-	public static final Color COLOR_CAMION = Color.WHITE;
+	public static final Color COLOR_CAMION = Color.PINK;
 	public static final Color COLOR_BUS = Color.YELLOW;
 	public static final Color COLOR_TRACTOMULA = Color.CYAN;
 

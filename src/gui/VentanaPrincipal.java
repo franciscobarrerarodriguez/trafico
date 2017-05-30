@@ -18,7 +18,7 @@ public class VentanaPrincipal extends JFrame {
 	private RedVial redVial;
 
 	// Componentes
-	public PanelPrincipal panelPrincipal;
+	public PanelRedVial panelRedVial;
 
 	public JMenuItem jMenuItemSalir;
 	public JMenuItem jMenuItemconfiguracion;
@@ -61,7 +61,7 @@ public class VentanaPrincipal extends JFrame {
 
 		// Se crea el panel en donde sera dibujada la red vial, y se definen sus
 		// medidas de ancho y alto dependiendo del tamano de la ventana.
-		this.add(this.panelPrincipal = new PanelPrincipal(this.getWidth() / this.redVial.getAncho(),
+		this.add(this.panelRedVial = new PanelRedVial(this.getWidth() / this.redVial.getAncho(),
 				this.getHeight() / this.redVial.getAlto(), this.redVial));
 	}
 
