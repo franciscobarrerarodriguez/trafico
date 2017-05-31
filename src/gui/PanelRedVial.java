@@ -58,7 +58,8 @@ public class PanelRedVial extends JLayeredPane {
 	}
 
 	/**
-	 * Renderiza toda la red vial.
+	 * Renderiza toda la red vial; Middle = new Integer(2)). top = new
+	 * Integer(3)); bottom = new Integer(1));
 	 */
 	private void renderVias() {
 		// Dibujar viasX.
@@ -110,6 +111,7 @@ public class PanelRedVial extends JLayeredPane {
 	}
 
 	private void renderVehiculo(Vehiculo vehiculo) {
+
 		int posX = vehiculo.getCoordenadaOrigen().getPosX();
 		int posY = vehiculo.getCoordenadaOrigen().getPosY();
 
@@ -117,24 +119,41 @@ public class PanelRedVial extends JLayeredPane {
 
 		int x = 0;
 		int y = 0;
+		int ancho = 0;
+		int alto = 0;
+
 		if (posX >= posY) {
-			x = (int) this.arrayListViasX.get(posX - 1).getBounds().getX() + 5;
-			if (posY == 1) {
+			if (posY == 1) {// Abajo
+				x = (int) this.arrayListViasX.get(posX - 1).getBounds().getX() + this.tamanoCarrilX
+						+ ((this.tamanoCarrilX - vehiculo.getAncho()) / 2) + 1;
 				y = Constantes.ALTO_VENTANA - 50;
-			} else {
+			} else if (posY == 0) {// Arriba
+				x = (int) this.arrayListViasX.get(posX - 1).getBounds().getX()
+						+ ((this.tamanoCarrilX - vehiculo.getAncho()) / 2) + 1;
 				y = 50;
 			}
+
+			alto = vehiculo.getLongitud();
+			ancho = vehiculo.getAncho();
+
 		} else if (posY > posX) {
-			y = (int) this.arrayListViasY.get(posY - 1).getBounds().getY() + 5;
-			if (posX == 1) {
+			if (posX == 1) {// Izquierda
+				y = (int) this.arrayListViasY.get(posY - 1).getBounds().getY()
+						+ ((this.tamanoCarrilY - vehiculo.getAncho()) / 2) + 1;
 				x = Constantes.ANCHO_VENTANA - 50;
-			} else {
+			} else {// Derecha
+				y = (int) this.arrayListViasY.get(posY - 1).getBounds().getY() + this.tamanoCarrilY
+						+ ((this.tamanoCarrilY - vehiculo.getAncho()) / 2) + 1;
 				x = 50;
 			}
-		}
+			alto = vehiculo.getAncho();
+			ancho = vehiculo.getLongitud();
+		} // else if (posX == posY) {
+
+		// }
 		System.out.println("Vehiculo " + vehiculo.getTipoVehiculo() + ", X:" + x + ", Y: " + y);
 
-		jLabelVehiculo.setBounds(x, y, vehiculo.getAncho(), vehiculo.getLongitud());
+		jLabelVehiculo.setBounds(x, y, ancho, alto);
 		this.add(jLabelVehiculo, new Integer(3));
 		vehiculo.setEstado(Estado.TRANSITANDO);
 		this.repaint();
