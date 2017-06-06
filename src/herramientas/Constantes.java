@@ -21,4 +21,9 @@ public class Constantes {
 	public static final Color COLOR_BUS = Color.YELLOW;
 	public static final Color COLOR_TRACTOMULA = Color.CYAN;
 
+	public static final int CAMBIO_PIXELES = 1;
+	
+	public static final int VELOCIDAD_MAX = 5;
+	public static final int VELOCIDAD_MIN = 50;
+	
 }

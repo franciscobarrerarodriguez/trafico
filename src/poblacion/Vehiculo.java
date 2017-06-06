@@ -2,8 +2,10 @@ package poblacion;
 
 import java.awt.Color;
 
+import gui.Ubicacion;
 import herramientas.Constantes;
 import herramientas.Coordenada;
+import herramientas.General;
 import herramientas.TipoVehiculo;
 
 public class Vehiculo {
@@ -22,11 +24,15 @@ public class Vehiculo {
 	private int longitud;
 	private int ancho;
 
+	private int velocidad;
+
 	private Color color;
 
 	private Coordenada coordenadaOrigen;
 	private Coordenada coordenadaDestino;
-	
+
+	private Ubicacion ubicacion;
+
 	private Estado estado;
 
 	/**
@@ -41,11 +47,13 @@ public class Vehiculo {
 	public Vehiculo(TipoVehiculo tipo, Coordenada coordenadaOrigen, Coordenada coordenadaDestino) {
 
 		this.ancho = Constantes.ANCHO_VEHICULO;
-		
+
 		this.estado = Estado.ESPERANDO;
 
 		this.coordenadaOrigen = coordenadaOrigen;
 		this.coordenadaDestino = coordenadaDestino;
+
+		this.velocidad = General.aleatorioEnRango(Constantes.VELOCIDAD_MIN, Constantes.VELOCIDAD_MIN);
 
 		this.init(tipo);
 	}
@@ -87,7 +95,7 @@ public class Vehiculo {
 	public String toString() {
 		return "Tipo: " + this.tipoVehiculo + ", ancho: " + this.ancho + "px, largo: " + this.longitud + "px, color:"
 				+ this.color + ", Coordenada origen: " + this.coordenadaOrigen.toString() + ", Coordenada destino: "
-				+ this.coordenadaDestino.toString()+", estado: "+this.estado;
+				+ this.coordenadaDestino.toString() + ", estado: " + this.estado;
 	}
 
 	public TipoVehiculo getTipoVehiculo() {
@@ -144,5 +152,21 @@ public class Vehiculo {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+
+	public Ubicacion getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(Ubicacion ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	public int getVelocidad() {
+		return velocidad;
+	}
+
+	public void setVelocidad(int velocidad) {
+		this.velocidad = velocidad;
 	}
 }

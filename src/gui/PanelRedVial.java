@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 
 import ambiente.RedVial;
 import herramientas.Constantes;
@@ -115,7 +114,7 @@ public class PanelRedVial extends JLayeredPane {
 		int posX = vehiculo.getCoordenadaOrigen().getPosX();
 		int posY = vehiculo.getCoordenadaOrigen().getPosY();
 
-		JLabelVehiculo jLabelVehiculo = new JLabelVehiculo(vehiculo);
+		JLabelVehiculo jLabelVehiculo = new JLabelVehiculo(vehiculo, this);
 
 		int x = 0;
 		int y = 0;
@@ -124,10 +123,14 @@ public class PanelRedVial extends JLayeredPane {
 
 		if (posX >= posY) {
 			if (posY == 1) {// Abajo
+				vehiculo.setUbicacion(Ubicacion.ABAJO);
+
 				x = (int) this.arrayListViasX.get(posX - 1).getBounds().getX() + this.tamanoCarrilX
 						+ ((this.tamanoCarrilX - vehiculo.getAncho()) / 2) + 1;
 				y = Constantes.ALTO_VENTANA - 50;
 			} else if (posY == 0) {// Arriba
+				vehiculo.setUbicacion(Ubicacion.ARRIBA);
+
 				x = (int) this.arrayListViasX.get(posX - 1).getBounds().getX()
 						+ ((this.tamanoCarrilX - vehiculo.getAncho()) / 2) + 1;
 				y = 50;
@@ -138,10 +141,14 @@ public class PanelRedVial extends JLayeredPane {
 
 		} else if (posY > posX) {
 			if (posX == 1) {// Izquierda
+				vehiculo.setUbicacion(Ubicacion.IZQUIERDA);
+
 				y = (int) this.arrayListViasY.get(posY - 1).getBounds().getY()
 						+ ((this.tamanoCarrilY - vehiculo.getAncho()) / 2) + 1;
 				x = Constantes.ANCHO_VENTANA - 50;
 			} else {// Derecha
+				vehiculo.setUbicacion(Ubicacion.DERECHA);
+
 				y = (int) this.arrayListViasY.get(posY - 1).getBounds().getY() + this.tamanoCarrilY
 						+ ((this.tamanoCarrilY - vehiculo.getAncho()) / 2) + 1;
 				x = 50;
@@ -156,7 +163,80 @@ public class PanelRedVial extends JLayeredPane {
 		jLabelVehiculo.setBounds(x, y, ancho, alto);
 		this.add(jLabelVehiculo, new Integer(3));
 		vehiculo.setEstado(Estado.TRANSITANDO);
+		jLabelVehiculo.getThread().start();
 		this.repaint();
 
+	}
+
+	public int getTamanoViaX() {
+		return tamanoViaX;
+	}
+
+	public void setTamanoViaX(int tamanoViaX) {
+		this.tamanoViaX = tamanoViaX;
+	}
+
+	public int getTamanoCarrilX() {
+		return tamanoCarrilX;
+	}
+
+	public void setTamanoCarrilX(int tamanoCarrilX) {
+		this.tamanoCarrilX = tamanoCarrilX;
+	}
+
+	public int getTamanoViaY() {
+		return tamanoViaY;
+	}
+
+	public void setTamanoViaY(int tamanoViaY) {
+		this.tamanoViaY = tamanoViaY;
+	}
+
+	public int getTamanoCarrilY() {
+		return tamanoCarrilY;
+	}
+
+	public void setTamanoCarrilY(int tamanoCarrilY) {
+		this.tamanoCarrilY = tamanoCarrilY;
+	}
+
+	public RedVial getRedVial() {
+		return redVial;
+	}
+
+	public void setRedVial(RedVial redVial) {
+		this.redVial = redVial;
+	}
+
+	public ArrayList<JLabelVia> getArrayListViasX() {
+		return arrayListViasX;
+	}
+
+	public void setArrayListViasX(ArrayList<JLabelVia> arrayListViasX) {
+		this.arrayListViasX = arrayListViasX;
+	}
+
+	public ArrayList<JLabelVia> getArrayListViasY() {
+		return arrayListViasY;
+	}
+
+	public void setArrayListViasY(ArrayList<JLabelVia> arrayListViasY) {
+		this.arrayListViasY = arrayListViasY;
+	}
+
+	public Thread getThreadVerificarVehiculos() {
+		return threadVerificarVehiculos;
+	}
+
+	public void setThreadVerificarVehiculos(Thread threadVerificarVehiculos) {
+		this.threadVerificarVehiculos = threadVerificarVehiculos;
+	}
+
+	public ArrayList<JLabel> getVehiculosEnTransito() {
+		return vehiculosEnTransito;
+	}
+
+	public void setVehiculosEnTransito(ArrayList<JLabel> vehiculosEnTransito) {
+		this.vehiculosEnTransito = vehiculosEnTransito;
 	}
 }
