@@ -8,7 +8,6 @@ import javax.swing.JLayeredPane;
 import ambiente.RedVial;
 import herramientas.Constantes;
 
-import herramientas.General;
 import poblacion.Estado;
 import poblacion.Vehiculo;
 
@@ -29,7 +28,7 @@ public class PanelRedVial extends JLayeredPane {
 	private ArrayList<JLabelVia> arrayListViasX;
 	private ArrayList<JLabelVia> arrayListViasY;
 
-	private Thread threadVerificarVehiculos;
+	private ThreadVerificarVehiculos threadVerificarVehiculos;
 
 	private ArrayList<JLabel> vehiculosEnTransito;
 
@@ -53,7 +52,9 @@ public class PanelRedVial extends JLayeredPane {
 		System.out.println("Ancho vias x: " + this.tamanoViaX + "px, Alto vias y: " + this.tamanoViaY + "px");
 		System.out.println("Ancho carril x: " + this.tamanoCarrilX + "px, Ancho carril y: " + this.tamanoCarrilY);
 
-		verificarVehiculos();
+		this.vehiculosEnTransito = new ArrayList<JLabel>();
+		this.threadVerificarVehiculos = new ThreadVerificarVehiculos(this);
+		this.threadVerificarVehiculos.start();
 	}
 
 	/**
@@ -86,30 +87,7 @@ public class PanelRedVial extends JLayeredPane {
 		this.repaint();
 	}
 
-	private void verificarVehiculos() {
-		this.vehiculosEnTransito = new ArrayList<JLabel>();
-
-		this.threadVerificarVehiculos = new Thread(new Runnable() {
-			ArrayList<Vehiculo> vehiculos = redVial.getVehiculos();
-
-			@Override
-			public void run() {
-				while (true) {
-					if (!vehiculos.isEmpty()) {
-						for (int i = 0; i < vehiculos.size(); i++) {
-							if (vehiculos.get(i).getEstado().equals(Estado.ESPERANDO)) {
-								renderVehiculo(vehiculos.get(i));
-							}
-						}
-					}
-					General.wait(1);// Disminuir tiempo para la distribucion
-				}
-			}
-		});
-		this.threadVerificarVehiculos.start();
-	}
-
-	private void renderVehiculo(Vehiculo vehiculo) {
+	public void renderVehiculo(Vehiculo vehiculo) {
 
 		int posX = vehiculo.getCoordenadaOrigen().getPosX();
 		int posY = vehiculo.getCoordenadaOrigen().getPosY();
@@ -164,8 +142,6 @@ public class PanelRedVial extends JLayeredPane {
 		this.add(jLabelVehiculo, new Integer(3));
 		vehiculo.setEstado(Estado.TRANSITANDO);
 		jLabelVehiculo.getThread().start();
-		this.repaint();
-
 	}
 
 	public int getTamanoViaX() {
@@ -224,19 +200,19 @@ public class PanelRedVial extends JLayeredPane {
 		this.arrayListViasY = arrayListViasY;
 	}
 
-	public Thread getThreadVerificarVehiculos() {
-		return threadVerificarVehiculos;
-	}
-
-	public void setThreadVerificarVehiculos(Thread threadVerificarVehiculos) {
-		this.threadVerificarVehiculos = threadVerificarVehiculos;
-	}
-
 	public ArrayList<JLabel> getVehiculosEnTransito() {
 		return vehiculosEnTransito;
 	}
 
 	public void setVehiculosEnTransito(ArrayList<JLabel> vehiculosEnTransito) {
 		this.vehiculosEnTransito = vehiculosEnTransito;
+	}
+
+	public ThreadVerificarVehiculos getThreadVerificarVehiculos() {
+		return threadVerificarVehiculos;
+	}
+
+	public void setThreadVerificarVehiculos(ThreadVerificarVehiculos threadVerificarVehiculos) {
+		this.threadVerificarVehiculos = threadVerificarVehiculos;
 	}
 }

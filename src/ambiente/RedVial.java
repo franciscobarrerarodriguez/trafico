@@ -21,7 +21,7 @@ public class RedVial {
 
 	private ArrayList<Vehiculo> vehiculos;
 
-	private Thread threadGenerarVehiculos;
+	private ThreadGenerarVehiculos threadGenerarVehiculos;
 
 	/**
 	 * 
@@ -51,7 +51,8 @@ public class RedVial {
 
 		this.imprimirMalla();
 
-		this.generarVehiculos();
+		this.threadGenerarVehiculos = new ThreadGenerarVehiculos(this);
+		this.threadGenerarVehiculos.start();
 	}
 
 	/**
@@ -101,50 +102,6 @@ public class RedVial {
 				this.mallaVial[posicion][j] = 1;
 			}
 		}
-	}
-
-	/**
-	 * Genera un medio de transporte cada 5 segundos desde el inicio de la
-	 * simulacion falta la distribucion con la cual son generados los vehiculos.
-	 */
-	private void generarVehiculos() {
-		this.threadGenerarVehiculos = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					Vehiculo vehiculo = new Vehiculo(TipoVehiculo.getTipoAleatorio(), generarCoordenada(),
-							generarCoordenada());
-					vehiculos.add(vehiculo);
-					System.out.println(vehiculo.toString());
-					General.wait(7);
-				}
-			}
-		});
-		this.threadGenerarVehiculos.start();
-	}
-
-	/**
-	 * Genera una coordenada aleatoria (sobre una via) que se puede utilizar
-	 * como origen o destino, si el resultado generado es 0(X), genera una
-	 * posicion valida entre las vias generadas posX y para posY 0 o 1, para
-	 * determinar su origen al pricipio o al final de la via. 0 para generarlo
-	 * en la parte superior y 1 para generarlo en la parte inferior de la
-	 * ventana
-	 */
-	private Coordenada generarCoordenada() {
-		int posX = 0;
-		int posY = 0;
-		switch (General.aleatorioEnRango(2, 0)) {
-		case 0: // X
-			posX = General.aleatorioEnRango(this.viasX, 1);
-			posY = General.aleatorioEnRango(2, 0);
-			break;
-		case 1: // Y
-			posX = General.aleatorioEnRango(2, 0);
-			posY = General.aleatorioEnRango(this.viasY, 1);
-			break;
-		}
-		return new Coordenada(posX, posY);
 	}
 
 	/**
