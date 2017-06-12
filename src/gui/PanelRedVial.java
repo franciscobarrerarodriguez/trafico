@@ -105,13 +105,13 @@ public class PanelRedVial extends JLayeredPane {
 
 				x = (int) this.arrayListViasX.get(posX - 1).getBounds().getX() + this.tamanoCarrilX
 						+ ((this.tamanoCarrilX - vehiculo.getAncho()) / 2) + 1;
-				y = Constantes.ALTO_VENTANA - 50;
+				y = Constantes.ALTO_VENTANA;
 			} else if (posY == 0) {// Arriba
 				vehiculo.setUbicacion(Ubicacion.ARRIBA);
 
 				x = (int) this.arrayListViasX.get(posX - 1).getBounds().getX()
 						+ ((this.tamanoCarrilX - vehiculo.getAncho()) / 2) + 1;
-				y = 50;
+				y =0;
 			}
 
 			alto = vehiculo.getLongitud();
@@ -123,13 +123,13 @@ public class PanelRedVial extends JLayeredPane {
 
 				y = (int) this.arrayListViasY.get(posY - 1).getBounds().getY()
 						+ ((this.tamanoCarrilY - vehiculo.getAncho()) / 2) + 1;
-				x = Constantes.ANCHO_VENTANA - 50;
+				x = Constantes.ANCHO_VENTANA;
 			} else {// Derecha
 				vehiculo.setUbicacion(Ubicacion.DERECHA);
 
 				y = (int) this.arrayListViasY.get(posY - 1).getBounds().getY() + this.tamanoCarrilY
 						+ ((this.tamanoCarrilY - vehiculo.getAncho()) / 2) + 1;
-				x = 50;
+				x = 0;
 			}
 			alto = vehiculo.getAncho();
 			ancho = vehiculo.getLongitud();

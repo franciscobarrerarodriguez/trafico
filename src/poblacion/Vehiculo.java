@@ -35,6 +35,8 @@ public class Vehiculo {
 
 	private Estado estado;
 
+	private int visibilidad;
+
 	/**
 	 * 
 	 * @param tipo
@@ -89,6 +91,7 @@ public class Vehiculo {
 			this.color = Constantes.COLOR_TRACTOMULA;
 			break;
 		}
+		this.visibilidad = this.longitud * 2;
 	}
 
 	@Override
@@ -168,5 +171,13 @@ public class Vehiculo {
 
 	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
+	}
+
+	public int getVisibilidad() {
+		return visibilidad;
+	}
+
+	public void setVisibilidad(int visibilidad) {
+		this.visibilidad = visibilidad;
 	}
 }
